@@ -1,0 +1,30 @@
+{
+  "name": "Appocrate ProgressiveWebApp",
+  "short_name": "AppocratePWA",
+  "start_url": "/pwa.html",
+  "scope": ".", 
+  "display": "standalone",
+  "background_color": "#19456b",
+  "theme_color": "#16c79a",
+  "description": "Questa è la fantastica PWA di Appocrate!",
+  "lang": "it-IT",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/img/logo48.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "/img/logo128.png",
+      "type": "image/png",
+      "sizes": "128x128"
+    },
+    {
+      "src": "/img/logo256.png",
+      "type": "image/png",
+      "sizes": "256x256"
+    }
+  ],
+  "related_applications": []
+}
