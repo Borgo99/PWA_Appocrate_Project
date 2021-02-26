@@ -15,5 +15,8 @@
     "nodemon": "^2.0.7",
     "web-push": "^3.4.4"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "engines": {
+    "node": ">=10.0.0"
+  }
 }
