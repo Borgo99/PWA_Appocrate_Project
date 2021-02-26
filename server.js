@@ -9,11 +9,11 @@ const app = express();
 app.use(express.static(`${__dirname}/public`));
 app.use(express.json());
 
-app.get('/subscriptions', (req, res) => {
-  res.status(200).json({
-    'status': 'success',
-    'ok': true
-  })
+
+
+app.get('/', (req, res) => {
+  console.log('dsnj');
+  res.status(200).redirect('/index.html');
 });
 
 app.post('/subscriptions', async (req, res) => {
