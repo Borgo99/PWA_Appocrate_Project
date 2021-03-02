@@ -1,5 +1,5 @@
 
-const cache_version = 4;
+const cache_version = 5;
 const CACHE_STATIC_NAME = 'precache-v' + cache_version;
 const CACHE_DYNAMIC_NAME = 'dynamic-v' + cache_version;
 
@@ -50,8 +50,8 @@ self.addEventListener('install', e => {
     caches.open(CACHE_STATIC_NAME).then( cache => {
       console.log('*Service worker* :', 'Precaching...');
       cache.addAll([
-        '/pwa.html',
-        './js/pwa.js',
+        // '/pwa.html',
+        // './js/pwa.js',
         '/img/logo800.png',
         '/html/offline.html'
       ]);
@@ -92,12 +92,12 @@ self.addEventListener('fetch', e => {
         return response;
       } else {
         return fetch(e.request)
-          .then( res => {
-            return caches.open(CACHE_DYNAMIC_NAME).then( cache => {
-              cache.put(e.request.url, res.clone());
-              return res;
-            })
-          })
+          // .then( res => {
+          //   return caches.open(CACHE_DYNAMIC_NAME).then( cache => {
+          //     cache.put(e.request.url, res.clone());
+          //     return res;
+          //   })
+          // })
           .catch( err => {
             return caches.open(CACHE_STATIC_NAME).then( cache => {
               return cache.match('/html/offline.html');
