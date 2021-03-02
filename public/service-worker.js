@@ -1,5 +1,5 @@
 
-const cache_version = 5;
+const cache_version = 6;
 const CACHE_STATIC_NAME = 'precache-v' + cache_version;
 const CACHE_DYNAMIC_NAME = 'dynamic-v' + cache_version;
 
