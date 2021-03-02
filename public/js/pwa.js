@@ -6,6 +6,10 @@ const photoBtn = document.querySelector('#photoBtn');
 const enableNotificationsBtn = document.querySelector('#enableNotificationBtn');
 const showNotificationBtn = document.querySelector('#showNotificationBtn');
 
+if (!('Notification' in window)) {
+  enableNotificationsBtn.style.display = 'none';
+}
+
 enableNotificationsBtn.addEventListener('click', () => {
   if (!('Notification' in window)) return console.log('Notification not supported.');
 
