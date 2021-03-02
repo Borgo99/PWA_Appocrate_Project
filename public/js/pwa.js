@@ -5,6 +5,46 @@ const notes = document.querySelector('#notes');
 const photoBtn = document.querySelector('#photoBtn');
 const enableNotificationsBtn = document.querySelector('#enableNotificationBtn');
 const showNotificationBtn = document.querySelector('#showNotificationBtn');
+const signup = document.querySelector('#signup');
+
+const vapidPublicKey = 'BAEiFaXKJJ5S1IhjfcLQrbZmwHEzScmKC1Ntbaf0ZpJpOmqL57i7j6hKOUxmJzpZ9uYMHRRFOSOgmEfJIqaazlU';
+
+// Public base64 to Uint
+function urlBase64ToUint8Array(base64String) {
+  var padding = '='.repeat((4 - base64String.length % 4) % 4);
+  var base64 = (base64String + padding)
+      .replace(/\-/g, '+')
+      .replace(/_/g, '/');
+
+  var rawData = window.atob(base64);
+  var outputArray = new Uint8Array(rawData.length);
+
+  for (var i = 0; i < rawData.length; ++i) {
+      outputArray[i] = rawData.charCodeAt(i);
+  }
+  return outputArray;
+}
+if (signup)
+  signup.addEventListener('click', async () => {
+    try {
+      let credential = await navigator.credentials.create({ 
+        publicKey: {
+          challenge: Uint8Array.from(vapidPublicKey, c => c.charCodeAt(0)),
+          rp: { id: "pwappocrate.herokuapp.com", name: "HerokuDemoPWA" },
+          user: {
+            id: Uint8Array.from('UZSL85T9AFC', c => c.charCodeAt(0)),
+            name: "jamiedoe",
+            displayName: "Jamie Doe"
+          },
+          pubKeyCredParams: [ {type: "public-key", alg: -7} ], //-7 means that server accepts Elliptic Curve public keys with SHA-256
+          timeout: 60 * 60 * 1000
+        }
+      });
+      console.log(credential);
+
+    } catch(err) {console.log(err)}
+  })
+
 
 if (!('Notification' in window)) {
   enableNotificationsBtn.style.display = 'none';
@@ -22,21 +62,7 @@ enableNotificationsBtn.addEventListener('click', () => {
   })
 });
 
-// Public base64 to Uint
-function urlBase64ToUint8Array(base64String) {
-  var padding = '='.repeat((4 - base64String.length % 4) % 4);
-  var base64 = (base64String + padding)
-      .replace(/\-/g, '+')
-      .replace(/_/g, '/');
 
-  var rawData = window.atob(base64);
-  var outputArray = new Uint8Array(rawData.length);
-
-  for (var i = 0; i < rawData.length; ++i) {
-      outputArray[i] = rawData.charCodeAt(i);
-  }
-  return outputArray;
-}
 showNotificationBtn.addEventListener('click', () => {
   if ('serviceWorker' in navigator) {
     let swreg; //variabile di appoggio
@@ -58,7 +84,6 @@ showNotificationBtn.addEventListener('click', () => {
       .then( sub => {
         if (sub === null) {
           //se non ci siamo precedentemente iscritti, allora creiamo una nuova iscrizione
-          const vapidPublicKey = 'BAEiFaXKJJ5S1IhjfcLQrbZmwHEzScmKC1Ntbaf0ZpJpOmqL57i7j6hKOUxmJzpZ9uYMHRRFOSOgmEfJIqaazlU';
           const convertedVapidPublicKey = urlBase64ToUint8Array(vapidPublicKey);
           return swreg.pushManager.subscribe({
             userVisibleOnly: true,
