@@ -9,6 +9,12 @@ const signup = document.querySelector('#signup');
 
 const vapidPublicKey = 'BAEiFaXKJJ5S1IhjfcLQrbZmwHEzScmKC1Ntbaf0ZpJpOmqL57i7j6hKOUxmJzpZ9uYMHRRFOSOgmEfJIqaazlU';
 
+PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable()
+  .then( condition => {
+    if (!condition) 
+      console.log('Touch ID missing')
+  });
+
 // Public base64 to Uint
 function urlBase64ToUint8Array(base64String) {
   var padding = '='.repeat((4 - base64String.length % 4) % 4);
@@ -37,7 +43,8 @@ if (signup)
             displayName: "Jamie Doe"
           },
           pubKeyCredParams: [ {type: "public-key", alg: -7} ], //-7 means that server accepts Elliptic Curve public keys with SHA-256
-          timeout: 60 * 60 * 1000
+          timeout: 60 * 60 * 1000,
+          authenticatorSelection: { authenticatorAttachment: 'platform' }
         }
       });
       console.log(credential);
