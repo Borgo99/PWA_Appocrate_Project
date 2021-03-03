@@ -12,30 +12,18 @@ const vapidPublicKey = 'BAEiFaXKJJ5S1IhjfcLQrbZmwHEzScmKC1Ntbaf0ZpJpOmqL57i7j6hK
 PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable()
   .then( condition => {
     if (!condition) 
-      console.log('Touch ID missing')
+      console.log('Missing user-verifying authenticators')
   });
+if (!window.PublicKeyCredential)
+  console.log('WebAuthn API not supported')
 
-// Public base64 to Uint
-function urlBase64ToUint8Array(base64String) {
-  var padding = '='.repeat((4 - base64String.length % 4) % 4);
-  var base64 = (base64String + padding)
-      .replace(/\-/g, '+')
-      .replace(/_/g, '/');
 
-  var rawData = window.atob(base64);
-  var outputArray = new Uint8Array(rawData.length);
-
-  for (var i = 0; i < rawData.length; ++i) {
-      outputArray[i] = rawData.charCodeAt(i);
-  }
-  return outputArray;
-}
 if (signup)
   signup.addEventListener('click', async () => {
     try {
       let credential = await navigator.credentials.create({ 
         publicKey: {
-          challenge: Uint8Array.from(vapidPublicKey, c => c.charCodeAt(0)),
+          challenge: Uint8Array.from('ABCDEFGHJKL', c => c.charCodeAt(0)),
           rp: { id: "pwappocrate.herokuapp.com", name: "HerokuDemoPWA" },
           user: {
             id: Uint8Array.from('UZSL85T9AFC', c => c.charCodeAt(0)),
@@ -69,7 +57,21 @@ enableNotificationsBtn.addEventListener('click', () => {
   })
 });
 
+// Public base64 to Uint
+function urlBase64ToUint8Array(base64String) {
+  var padding = '='.repeat((4 - base64String.length % 4) % 4);
+  var base64 = (base64String + padding)
+      .replace(/\-/g, '+')
+      .replace(/_/g, '/');
 
+  var rawData = window.atob(base64);
+  var outputArray = new Uint8Array(rawData.length);
+
+  for (var i = 0; i < rawData.length; ++i) {
+      outputArray[i] = rawData.charCodeAt(i);
+  }
+  return outputArray;
+}
 showNotificationBtn.addEventListener('click', () => {
   if ('serviceWorker' in navigator) {
     let swreg; //variabile di appoggio
