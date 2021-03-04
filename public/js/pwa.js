@@ -9,38 +9,38 @@ const signup = document.querySelector('#signup');
 
 const vapidPublicKey = 'BAEiFaXKJJ5S1IhjfcLQrbZmwHEzScmKC1Ntbaf0ZpJpOmqL57i7j6hKOUxmJzpZ9uYMHRRFOSOgmEfJIqaazlU';
 
-// PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable()
-//   .then( condition => {
-//     if (!condition) 
-//       console.log('Missing user-verifying authenticators')
-//   });
-// if (!window.PublicKeyCredential)
-//   console.log('WebAuthn API not supported')
+PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable()
+  .then( condition => {
+    if (!condition) 
+      console.log('Missing user-verifying authenticators')
+  });
+if (!window.PublicKeyCredential)
+  console.log('WebAuthn API not supported')
 
 
-// if (signup)
-//   signup.addEventListener('click', async () => {
-//     try {
-//       let credential = await navigator.credentials.create({ 
-//         publicKey: {
-//           challenge: Uint8Array.from('ABCDEFGHJKL', c => c.charCodeAt(0)),
-//           rp: { 
-//             id: "pwappocrate.herokuapp.com", 
-//             name: "HerokuDemoPWA" },
-//           user: {
-//             id: Uint8Array.from('UZSL85T9AFC', c => c.charCodeAt(0)),
-//             name: "jamiedoe",
-//             displayName: "Jamie Doe"
-//           },
-//           pubKeyCredParams: [ {type: "public-key", alg: -7} ], //-7 means that server accepts Elliptic Curve public keys with SHA-256
-//           timeout: 60 * 60 * 1000,
-//           authenticatorSelection: { authenticatorAttachment: 'platform', userVerification: 'required' }
-//         }
-//       });
-//       console.log(credential);
+if (signup)
+  signup.addEventListener('click', async () => {
+    try {
+      let credential = await navigator.credentials.create({ 
+        publicKey: {
+          challenge: Uint8Array.from('ABCDEFGHJKL', c => c.charCodeAt(0)),
+          rp: { 
+            id: "pwappocrate.herokuapp.com", 
+            name: "HerokuDemoPWA" },
+          user: {
+            id: Uint8Array.from('UZSL85T9AFC', c => c.charCodeAt(0)),
+            name: "jamiedoe",
+            displayName: "Jamie Doe"
+          },
+          pubKeyCredParams: [ {type: "public-key", alg: -7} ], //-7 means that server accepts Elliptic Curve public keys with SHA-256
+          timeout: 60 * 60 * 1000,
+          authenticatorSelection: { authenticatorAttachment: 'platform', userVerification: 'required' }
+        }
+      });
+      console.log(credential);
 
-//     } catch(err) {console.log(err)}
-//   })
+    } catch(err) {console.log(err)}
+  })
 
 
 if (!('Notification' in window)) {
