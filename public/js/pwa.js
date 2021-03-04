@@ -37,7 +37,15 @@ if (signup)
           authenticatorSelection: { authenticatorAttachment: 'platform', userVerification: 'required' }
         }
       });
-      console.log(credential);
+      
+      // decode the clientDataJSON into a utf-8 string
+      const utf8Decoder = new TextDecoder('utf-8');
+      const decodedClientData = utf8Decoder.decode(credential.response.clientDataJSON)
+
+      // parse the string as an object
+      const clientDataObj = JSON.parse(decodedClientData);
+
+      console.log(clientDataObj)
 
     } catch(err) {console.log(err)}
   })
