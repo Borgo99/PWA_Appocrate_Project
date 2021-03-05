@@ -20,7 +20,9 @@ if (!window.PublicKeyCredential)
 
 if (signup)
   signup.addEventListener('click', async () => {
+    console.log('Challenge:', Uint8Array.from('ABCDEFGHJKL', c => c.charCodeAt(0)));
     try {
+
       let credential = await navigator.credentials.create({ 
         publicKey: {
           challenge: Uint8Array.from('ABCDEFGHJKL', c => c.charCodeAt(0)),
