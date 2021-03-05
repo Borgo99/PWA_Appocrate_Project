@@ -34,7 +34,7 @@ if (signup)
           displayName: "Jamie Doe"
         },
         pubKeyCredParams: [ {type: "public-key", alg: -7} ], //-7 means that server accepts Elliptic Curve public keys with SHA-256
-        //timeout: 60 * 60 * 1000,
+        timeout: 60 * 1000,
         authenticatorSelection: { authenticatorAttachment: 'platform', userVerification: 'required' }
       }
 
