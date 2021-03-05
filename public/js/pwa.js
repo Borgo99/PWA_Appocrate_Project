@@ -20,18 +20,18 @@ if (!window.PublicKeyCredential)
 
 if (signup)
   signup.addEventListener('click', async () => {
-    console.log('Challenge:', Uint8Array.from('ABCDEFGHJKL', c => c.charCodeAt(0)));
+    console.log('Challenge:', Uint8Array.from('ABCDEFGHJKM', c => c.charCodeAt(0)));
     try {
 
       const publickKey = {
-        challenge: Uint8Array.from('ABCDEFGHJKL', c => c.charCodeAt(0)),
+        challenge: Uint8Array.from('ABCDEFGHJKM', c => c.charCodeAt(0)),
         rp: { 
           id: "pwappocrate.herokuapp.com", 
           name: "HerokuDemoPWA" },
         user: {
-          id: Uint8Array.from('UZSL85T9AFC', c => c.charCodeAt(0)),
-          name: "jamiedoe",
-          displayName: "Jamie Doe"
+          id: Uint8Array.from('UZSL85T9AFM', c => c.charCodeAt(0)),
+          name: "mario",
+          displayName: "Mario Rossi"
         },
         pubKeyCredParams: [ {type: "public-key", alg: -7} ], //-7 means that server accepts Elliptic Curve public keys with SHA-256
         timeout: 60 * 1000,
