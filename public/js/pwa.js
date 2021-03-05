@@ -23,22 +23,25 @@ if (signup)
     console.log('Challenge:', Uint8Array.from('ABCDEFGHJKL', c => c.charCodeAt(0)));
     try {
 
+      const publickKey = {
+        challenge: Uint8Array.from('ABCDEFGHJKL', c => c.charCodeAt(0)),
+        rp: { 
+          id: "pwappocrate.herokuapp.com", 
+          name: "HerokuDemoPWA" },
+        user: {
+          id: Uint8Array.from('UZSL85T9AFC', c => c.charCodeAt(0)),
+          name: "jamiedoe",
+          displayName: "Jamie Doe"
+        },
+        pubKeyCredParams: [ {type: "public-key", alg: -7} ], //-7 means that server accepts Elliptic Curve public keys with SHA-256
+        //timeout: 60 * 60 * 1000,
+        authenticatorSelection: { authenticatorAttachment: 'platform', userVerification: 'required' }
+      }
+
       let credential = await navigator.credentials.create({ 
-        publicKey: {
-          challenge: Uint8Array.from('ABCDEFGHJKL', c => c.charCodeAt(0)),
-          rp: { 
-            id: "pwappocrate.herokuapp.com", 
-            name: "HerokuDemoPWA" },
-          user: {
-            id: Uint8Array.from('UZSL85T9AFC', c => c.charCodeAt(0)),
-            name: "jamiedoe",
-            displayName: "Jamie Doe"
-          },
-          pubKeyCredParams: [ {type: "public-key", alg: -7} ], //-7 means that server accepts Elliptic Curve public keys with SHA-256
-          timeout: 60 * 60 * 1000,
-          authenticatorSelection: { authenticatorAttachment: 'platform', userVerification: 'required' }
-        }
+        publicKey: publickKey
       });
+      console.log(credential);
       
       // decode the clientDataJSON into a utf-8 string
       const utf8Decoder = new TextDecoder('utf-8');
