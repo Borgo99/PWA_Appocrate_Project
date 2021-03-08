@@ -1,4 +1,3 @@
-const axios = require('axios'); 
 
 const signup = document.querySelector('#signup');
 
@@ -38,10 +37,12 @@ if (signup)
       })
       .then( credentials => {
         console.log(credentials);
-        axios({
+        fetch('/signup' , {
           method: 'POST',
-          url: '/signup',
-          data: {...credentials},
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(credentials)
         })
         .then( res => confirm('Registrato con successo!'))
         ;
