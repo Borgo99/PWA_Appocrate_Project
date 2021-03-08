@@ -37,7 +37,7 @@ if (signup)
         }
       })
       .then( credentials => {
-        console.log(JSON.parse( credentials ));
+        console.log( credentials );
         console.log(credentials.id);
 
         // decode the clientDataJSON into a utf-8 string
@@ -46,6 +46,9 @@ if (signup)
 
         // parse the string as an object
         const clientDataObj = JSON.parse(decodedClientData);
+
+        clientDataObj['publicKey'] = credentials.response.attestationObject;
+        clientDataObj['credentialsId'] = credentials.id;
 
         console.log(clientDataObj);
         
@@ -65,7 +68,15 @@ if (signup)
 
 if (login)
   login.addEventListener('click', () => {
-
+    navigator.credentials.get({
+      publicKey: {
+        challenge: Uint8Array.from('ABCDEFGHJKMOJDIFJIOJISDJSAPOQSVX', c => c.charCodeAt(0))
+      }
+    })
+    .then( assertion => {
+      console.log(assertion);
+    })
+    .catch( e => console.log(e))
   });
 
 

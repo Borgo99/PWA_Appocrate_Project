@@ -53,6 +53,7 @@ app.get('/isRegistred', (req, res) => {
   if (registredIp.includes(req.ip)) res.status(200).send(true);
   else res.status(200).send(false);
 });
+const users = [];
 app.post('/signup', (req, res) => {
   if (!registredIp.includes(req.ip)) registredIp.push(req.ip);
 
@@ -65,15 +66,18 @@ app.post('/signup', (req, res) => {
    * }
    */
 
-  res.status(201).json({status: 'success'});
-
   if (req.body.type !== 'webauthn.create') return 'Signup type error';
 
   if (req.body.origin !== "https://pwappocrate.herokuapp.com")
     return 'Signup origin error';
     
+  users.push({
+    'user': req.ip,
+    'challenge': req.body.challenge,
+    'publicKey': req.body.publicKey
+  });
   
-
+  res.status(201).json({status: 'success'});
 });
 
 const port = process.env.PORT || 8001;
