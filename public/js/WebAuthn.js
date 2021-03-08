@@ -76,7 +76,7 @@ if (login)
 
     const randomChallenge = new Uint8Array(32);
     window.crypto.getRandomValues(randomChallenge);
-    const bufferChallenge = Uint8Array.from(randomChallenge, c=>c.charCodeAt(0));
+    // const bufferChallenge = Uint8Array.from(randomChallenge, c=>c.charCodeAt(0));
 
     var encoder = new TextEncoder();
     var acceptableCredential = {
