@@ -37,16 +37,16 @@ if (signup)
       })
       .then( credentials => {
         console.log(credentials);
-        fetch('/signup' , {
+        return fetch('/signup' , {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
           },
           body: JSON.stringify(credentials)
         })
-        .then( res => confirm('Registrato con successo!'))
-        ;
       })
+      .then( res => confirm('Registrato con successo!'))
       .catch( e => console.log(e))
   )
 
