@@ -36,6 +36,11 @@ if (signup)
       })
       .then( credentials => {
         console.log(credentials);
+        fetch('/signup', {
+          method: 'POST',
+          body: credentials
+        });
+        confirm('Registrato con successo!');
       })
       .catch( e => console.log(e))
   )

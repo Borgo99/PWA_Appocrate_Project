@@ -54,7 +54,16 @@ app.get('/isRegistred', (req, res) => {
   else res.status(200).send(false);
 });
 app.post('/signup', (req, res) => {
-  registredIp.push(req.ip);
+  if (!registredIp.includes(req.ip)) registredIp.push(req.ip);
+
+  // decode the clientDataJSON into a utf-8 string
+  const utf8Decoder = new TextDecoder('utf-8');
+  const decodedClientData = utf8Decoder.decode(req.body.response.clientDataJSON)
+
+  // parse the string as an object
+  const clientDataObj = JSON.parse(decodedClientData);
+
+  return console.log(clientDataObj);
 
   if (req.body.type !== 'webauthn.create') return 'Signup type error';
 
