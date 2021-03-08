@@ -71,11 +71,11 @@ if (signup)
 if (login)
   login.addEventListener('click', () => {
 
-    const base64Id = 'Ej_1cfBcad6TVO1choHVQl';
-    const bufferId = Buffer.from(base64Id, 'base64');
+    const base64Id = 'Ej_1cfBcad6TVO1choHVQljdsaiodjaoisdoiasjdiosj';
+    const bufferId =  Uint8Array.from(window.atob(base64Id), c=>c.charCodeAt(0));
 
     const randomChallenge = crypto.randomBytes(32);
-    const bufferChallenge = Buffer.from(randomChallenge, 'base64');
+    const bufferChallenge = Uint8Array.from(randomChallenge, c=>c.charCodeAt(0));
 
     var encoder = new TextEncoder();
     var acceptableCredential = {
