@@ -71,8 +71,8 @@ if (signup)
 if (login)
   login.addEventListener('click', () => {
 
-    const base64Id = 'Ej_1cfBcad6TVO1choHVQl';
-    const bufferId =  Uint8Array.from(window.atob(base64Id), c=>c.charCodeAt(0));
+    const base64Id = window.btoa('Ej_1cfBcad6TVO1choHVQljaoisjaisj');
+    const bufferId = Uint8Array.from(window.atob(base64Id), c=>c.charCodeAt(0));
 
     const randomChallenge = crypto.randomBytes(32);
     const bufferChallenge = Uint8Array.from(randomChallenge, c=>c.charCodeAt(0));
