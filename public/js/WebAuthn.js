@@ -37,7 +37,7 @@ if (signup)
         }
       })
       .then( credentials => {
-        console.log(credentials);
+        console.log(JSON.stringify( credentials ));
         console.log(credentials.id);
 
         // decode the clientDataJSON into a utf-8 string
