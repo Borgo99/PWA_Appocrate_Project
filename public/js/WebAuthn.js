@@ -75,10 +75,10 @@ if (login)
         challenge: Uint8Array.from('ABCDEFGHJKMOJDIFJIOJISDJSAPOQSVX', c => c.charCodeAt(0)),
         allowCredentials: [{
           id: Uint8Array.from(credentialsId, c => c.charCodeAt(0)),
-          type: 'public-key'
+          type: 'public-key',
+          transports: ['internal']
         }],
-        userVerification: 'required', 
-        authenticatorAttachment: 'platform'
+        // userVerification: 'required'
       }
     })
     .then( assertion => {
