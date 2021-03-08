@@ -58,15 +58,6 @@ app.post('/signup', (req, res) => {
 
   console.log(req.body);
 
-  // decode the clientDataJSON into a utf-8 string
-  const utf8Decoder = new TextDecoder('utf-8');
-  const decodedClientData = utf8Decoder.decode(req.body.response.clientDataJSON)
-
-  // parse the string as an object
-  const clientDataObj = JSON.parse(decodedClientData);
-
-  console.log(clientDataObj);
-
   res.status(201).json({status: 'success'});
 
   if (req.body.type !== 'webauthn.create') return 'Signup type error';

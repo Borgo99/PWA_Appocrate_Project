@@ -37,13 +37,23 @@ if (signup)
       })
       .then( credentials => {
         console.log(credentials);
+
+        // decode the clientDataJSON into a utf-8 string
+        const utf8Decoder = new TextDecoder('utf-8');
+        const decodedClientData = utf8Decoder.decode(credentials.response.clientDataJSON);
+
+        // parse the string as an object
+        const clientDataObj = JSON.parse(decodedClientData);
+
+        console.log(clientDataObj);
+        
         return fetch('/signup' , {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
           },
-          body: JSON.stringify(credentials)
+          body: JSON.stringify(clientDataObj)
         })
       })
       .then( res => confirm('Registrato con successo!'))
