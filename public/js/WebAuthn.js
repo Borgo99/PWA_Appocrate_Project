@@ -9,6 +9,7 @@ if (!window.PublicKeyCredential)
   console.log('WebAuthn API not supported')
 
 
+const credentialsId;
 if (signup)
   signup.addEventListener('click', () =>
     PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable()
@@ -49,6 +50,7 @@ if (signup)
 
         clientDataObj['publicKey'] = credentials.response.attestationObject;
         clientDataObj['credentialsId'] = credentials.id;
+        credentialsId = credentials.id;
 
         console.log(clientDataObj);
         
@@ -70,7 +72,11 @@ if (login)
   login.addEventListener('click', () => {
     navigator.credentials.get({
       publicKey: {
-        challenge: Uint8Array.from('ABCDEFGHJKMOJDIFJIOJISDJSAPOQSVX', c => c.charCodeAt(0))
+        challenge: Uint8Array.from('ABCDEFGHJKMOJDIFJIOJISDJSAPOQSVX', c => c.charCodeAt(0)),
+        allowCredentials: [{
+          id: Uint8Array.from(credentialsId, c => c.charCodeAt(0)),
+          type: 'public-key'
+        }]
       }
     })
     .then( assertion => {
