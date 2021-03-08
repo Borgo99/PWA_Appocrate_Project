@@ -78,7 +78,7 @@ if (login)
           type: 'public-key',
           transports: ['internal']
         }],
-        // userVerification: 'required'
+        userVerification: 'required'
       }
     })
     .then( assertion => {
