@@ -70,15 +70,22 @@ if (signup)
 
 if (login)
   login.addEventListener('click', () => {
+
+    const base64Id = 'Ej_1cfBcad6TVO1choHVQl';
+    const bufferId = Buffer.from(base64Id, 'base64');
+
+    const randomChallenge = crypto.randomBytes(32);
+    const bufferChallenge = Buffer.from(randomChallenge, 'base64');
+
     var encoder = new TextEncoder();
     var acceptableCredential = {
       type: "public-key",
-      id: encoder.encode("BA44712732CE"),
+      id: bufferId,
       transports: ['internal']
     };
     navigator.credentials.get({
       publicKey: {
-        challenge: Uint8Array.from('ABCDEFGHJKMOJDIFJIOJISDJSAPOQSVX', c => c.charCodeAt(0)),
+        challenge: bufferChallenge,
         // allowCredentials: [{
         //   id: Uint8Array.from(credentialsId, c => c.charCodeAt(0)),
         //   type: 'public-key',
