@@ -1,5 +1,6 @@
 
 const signup = document.querySelector('#signup');
+const login = document.querySelector('#login');
 
 // console.log(Uint8Array.from(window.atob("MIIBkzCCATigAwIBAjCCAZMwggE4oAMCAQIwggGTMII="), c=>c.charCodeAt(0)));
 
@@ -37,6 +38,7 @@ if (signup)
       })
       .then( credentials => {
         console.log(credentials);
+        console.log(credentials.id);
 
         // decode the clientDataJSON into a utf-8 string
         const utf8Decoder = new TextDecoder('utf-8');
@@ -57,8 +59,15 @@ if (signup)
         })
       })
       .then( res => confirm('Registrato con successo!'))
+      .then( res => signup.parentNode.removeChild(signup) )
       .catch( e => console.log(e))
   )
+
+if (login)
+  login.addEventListener('click', () => {
+
+  });
+
 
 
 

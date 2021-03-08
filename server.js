@@ -56,7 +56,14 @@ app.get('/isRegistred', (req, res) => {
 app.post('/signup', (req, res) => {
   if (!registredIp.includes(req.ip)) registredIp.push(req.ip);
 
-  console.log(req.body);
+  /**
+   * req.body = {
+   *  type: 'webauthn.create',
+      challenge: 'QUJDREVGR0hKS01PSkRJRkpJT0pJU0RKU0FQT1FTVlg',
+      origin: 'https://pwappocrate.herokuapp.com',
+      androidPackageName: 'com.android.chrome'
+   * }
+   */
 
   res.status(201).json({status: 'success'});
 
