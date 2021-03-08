@@ -74,7 +74,8 @@ if (login)
     const base64Id = window.btoa('Ej_1cfBcad6TVO1choHVQljaoisjaisj');
     const bufferId = Uint8Array.from(window.atob(base64Id), c=>c.charCodeAt(0));
 
-    const randomChallenge = crypto.randomBytes(32);
+    const randomChallenge = new Uint8Array(32);
+    window.crypto.getRandomValues(randomChallenge);
     const bufferChallenge = Uint8Array.from(randomChallenge, c=>c.charCodeAt(0));
 
     var encoder = new TextEncoder();
@@ -85,7 +86,7 @@ if (login)
     };
     navigator.credentials.get({
       publicKey: {
-        challenge: bufferChallenge,
+        challenge: randomChallenge,
         // allowCredentials: [{
         //   id: Uint8Array.from(credentialsId, c => c.charCodeAt(0)),
         //   type: 'public-key',
