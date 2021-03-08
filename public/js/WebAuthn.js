@@ -1,3 +1,5 @@
+const axios = require('axios'); 
+
 const signup = document.querySelector('#signup');
 
 // console.log(Uint8Array.from(window.atob("MIIBkzCCATigAwIBAjCCAZMwggE4oAMCAQIwggGTMII="), c=>c.charCodeAt(0)));
@@ -36,9 +38,10 @@ if (signup)
       })
       .then( credentials => {
         console.log(credentials);
-        fetch('/signup', {
+        axios({
           method: 'POST',
-          body: {...credentials},
+          url: '/signup',
+          data: {...credentials},
         })
         .then( res => confirm('Registrato con successo!'))
         ;
