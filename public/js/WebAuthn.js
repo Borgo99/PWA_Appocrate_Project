@@ -39,8 +39,9 @@ if (signup)
         fetch('/signup', {
           method: 'POST',
           body: credentials
-        });
-        confirm('Registrato con successo!');
+        })
+        .then( res => confirm('Registrato con successo!'))
+        ;
       })
       .catch( e => console.log(e))
   )
