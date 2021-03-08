@@ -38,9 +38,6 @@ if (signup)
         console.log(credentials);
         fetch('/signup', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
           body: {...credentials},
         })
         .then( res => confirm('Registrato con successo!'))
