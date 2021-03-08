@@ -70,14 +70,21 @@ if (signup)
 
 if (login)
   login.addEventListener('click', () => {
+    var encoder = new TextEncoder();
+    var acceptableCredential = {
+      type: "public-key",
+      id: encoder.encode("BA44712732CE"),
+      transports: ['internal']
+    };
     navigator.credentials.get({
       publicKey: {
         challenge: Uint8Array.from('ABCDEFGHJKMOJDIFJIOJISDJSAPOQSVX', c => c.charCodeAt(0)),
-        allowCredentials: [{
-          id: Uint8Array.from(credentialsId, c => c.charCodeAt(0)),
-          type: 'public-key',
-          transports: ['internal']
-        }],
+        // allowCredentials: [{
+        //   id: Uint8Array.from(credentialsId, c => c.charCodeAt(0)),
+        //   type: 'public-key',
+        //   transports: ['internal']
+        // }],
+        allowCredentials: [acceptableCredential],
         userVerification: 'required'
       }
     })
