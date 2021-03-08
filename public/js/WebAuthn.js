@@ -9,7 +9,7 @@ if (!window.PublicKeyCredential)
   console.log('WebAuthn API not supported')
 
 
-const credentialsId;
+let credentialsId = null;
 if (signup)
   signup.addEventListener('click', () =>
     PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable()
