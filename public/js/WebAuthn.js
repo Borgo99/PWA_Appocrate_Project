@@ -76,7 +76,9 @@ if (login)
         allowCredentials: [{
           id: Uint8Array.from(credentialsId, c => c.charCodeAt(0)),
           type: 'public-key'
-        }]
+        }],
+        userVerification: 'required', 
+        authenticatorAttachment: 'platform'
       }
     })
     .then( assertion => {
