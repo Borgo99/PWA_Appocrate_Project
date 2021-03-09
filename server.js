@@ -80,6 +80,18 @@ app.post('/signup', (req, res) => {
   res.status(201).json({status: 'success'});
 });
 
+const usersCredentials = {};
+usersCredentials['Mario'] = 'ciao';
+app.post('/loginForm', (req, res) => {
+
+  console.log('[Login]:', req.body.username);
+
+  if (usersCredentials[req.body.username] === req.body.password)
+    return res.status(200).json({status: 'success'});
+
+  res.status(400).json({status: 'failed'});
+});
+
 const port = process.env.PORT || 8001;
 const server = app.listen(port, () => {
   console.log("Server is on.");
