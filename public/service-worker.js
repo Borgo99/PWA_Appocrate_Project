@@ -1,5 +1,5 @@
 
-const cache_version = 7;
+const cache_version = 11;
 const CACHE_STATIC_NAME = 'precache-v' + cache_version;
 const CACHE_DYNAMIC_NAME = 'dynamic-v' + cache_version;
 
@@ -45,7 +45,7 @@ self.addEventListener('notificationclick', e => {
 //SW INSTALL, ACTIVATE AND FETCH
 
 self.addEventListener('install', e => {
-  console.log('*Service Worker* :', 'Installing SW...', e);
+  console.log('*Service Worker* :', 'Installing SW...');
   e.waitUntil(
     caches.open(CACHE_STATIC_NAME).then( cache => {
       console.log('*Service worker* :', 'Precaching...');
@@ -53,14 +53,17 @@ self.addEventListener('install', e => {
         // '/pwa.html',
         // './js/pwa.js',
         '/img/logo800.png',
-        '/html/offline.html'
+        '/html/offline.html',
+        // '/'
       ]);
     })
   );
+  self.skipWaiting();
+  e.waitUntil(console.log('*Service Worker* :', 'Successfully installed!'));
 });
 
 self.addEventListener('activate', e => {
-  console.log('*Service Worker* :', 'SW activated!', e);
+  console.log('*Service Worker* :', 'Activating SW...');
   
   e.waitUntil(
     caches.keys().then( keys => {
@@ -72,10 +75,14 @@ self.addEventListener('activate', e => {
       }));
     })
   );
-
-  return self.clients.claim();
+  e.waitUntil(clients.claim());
+  e.waitUntil(console.log('*Service Worker* :', 'Successfully activated!'));
+  // return self.clients.claim();
 });
 
+self.addEventListener('fetch', e => {
+  console.log('Fetching ', e.request);
+});
 
 /**
  * Classic Cache Strategy (Cache-first strategy)
@@ -89,15 +96,20 @@ self.addEventListener('fetch', e => {
     caches.match(e.request).then( response => {
       //if the response is not null, we return it
       if (response) {
+        fetch(e.request).then(res => 
+          caches.open(CACHE_DYNAMIC_NAME).then( cache => {
+            cache.put(e.request.url, res.clone());
+          })
+        );
         return response;
       } else {
         return fetch(e.request)
-          // .then( res => {
-          //   return caches.open(CACHE_DYNAMIC_NAME).then( cache => {
-          //     cache.put(e.request.url, res.clone());
-          //     return res;
-          //   })
-          // })
+          .then( res => {
+            return caches.open(CACHE_DYNAMIC_NAME).then( cache => {
+              cache.put(e.request.url, res.clone());
+              return res;
+            })
+          })
           .catch( err => {
             return caches.open(CACHE_STATIC_NAME).then( cache => {
               return cache.match('/html/offline.html');

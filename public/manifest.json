@@ -1,12 +1,12 @@
 {
-  "name": "Appocrate ProgressiveWebApp",
-  "short_name": "AppocratePWA",
+  "name": "ProgressiveWebApp",
+  "short_name": "PWA",
   "start_url": "/pwa.html",
   "scope": ".", 
   "display": "standalone",
   "background_color": "#19456b",
   "theme_color": "#16c79a",
-  "description": "Questa è la fantastica PWA di Appocrate!",
+  "description": "Questa è la descrizione della PWA!",
   "lang": "it-IT",
   "orientation": "portrait-primary",
   "icons": [
@@ -26,5 +26,19 @@
       "sizes": "256x256"
     }
   ],
-  "related_applications": []
+  "related_applications": [
+    {
+      "platform": "play",
+      "url": "https://play.google.com/store/apps/details?id=com.example",
+      "id": "com.example"
+    }
+  ],
+  "prefer_related_application": false,
+  "shortcuts" : [
+    {
+      "name": "Meteo di oggi",
+      "url": "/today",
+      "description": "Previsioni meteo delle prossime 24 ore"
+    }  
+  ]
 }

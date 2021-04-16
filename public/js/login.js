@@ -1,7 +1,4 @@
 const loginForm = document.querySelector('#login-form');
-loginForm.style.display = 'block';
-document.querySelector('#login').style.display = 'none';
-document.querySelector('#signup').style.display = 'none';
 
 if (loginForm)
   loginForm.addEventListener('submit', e => {
@@ -23,10 +20,10 @@ if (loginForm)
     .then( response => {
       if (response.status === 'success') {
         loginForm.style.display = 'none';
-        const markup = `<p>Bentornato ${username} !</p>`;
+        const markup = `<p class="display-6">Bentornato ${username} !</p>`;
         loginForm.insertAdjacentHTML('afterend', markup);
       } 
-      else location.assign('/html/contact.html');
+      else alert('Invalid email or password');
     })
     .catch(err => console.log(err));
 

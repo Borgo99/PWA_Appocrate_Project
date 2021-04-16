@@ -1,0 +1,7 @@
+version: "Apple Swift version 5.3.2 (swiftlang-1200.0.45 clang-1200.0.32.28)"
+options: "46537ed400027140c015b4f7422d7bff"
+build_time: [1618496447, 227007000]
+inputs:
+  "/Users/andreaborghesi/Desktop/TIROCINIO/PWA_Appocrate_Project/WKWebViewTest/WKWebViewTest/ViewController.swift": [1618496444, 782498411]
+  "/Users/andreaborghesi/Desktop/TIROCINIO/PWA_Appocrate_Project/WKWebViewTest/WKWebViewTest/AppDelegate.swift": [1618471214, 559593900]
+  "/Users/andreaborghesi/Desktop/TIROCINIO/PWA_Appocrate_Project/WKWebViewTest/WKWebViewTest/SceneDelegate.swift": [1618471214, 563273985]
