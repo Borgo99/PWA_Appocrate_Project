@@ -50,11 +50,11 @@ self.addEventListener('install', e => {
     caches.open(CACHE_STATIC_NAME).then( cache => {
       console.log('*Service worker* :', 'Precaching...');
       cache.addAll([
-        // '/pwa.html',
-        // './js/pwa.js',
+        '/pwa.html',
+        './js/pwa.js',
         '/img/logo800.png',
         '/html/offline.html',
-        // '/'
+        '/'
       ]);
     })
   );

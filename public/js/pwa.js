@@ -11,7 +11,7 @@ timeBtn.addEventListener('click', () => {
 photoBtn.addEventListener('click', () => {
   fetch('https://picsum.photos/200').then( response => {
     let markup = `
-      <img src='${response.url}' class='img-thumbnail border border-primary border-3'/>
+      <img src='${response.url}' class='img-thumbnail border border-primary border-3 my-3'/>
     `;
     photoBtn.insertAdjacentHTML('afterend', markup);
     photoBtn.parentNode.removeChild(photoBtn);
