@@ -16,7 +16,7 @@ if ("serviceWorker" in navigator ) {
 var promptEvent;
 
 window.addEventListener('beforeinstallprompt', e => {
-  // console.log('beforeinstallprompt triggered');
+  console.log('beforeinstallprompt triggered');
   e.preventDefault();
   promptEvent = e;
   return false;
