@@ -1,5 +1,6 @@
 
 const downloadBtn = document.querySelector('#downloadBtn');
+const addToHomeScreen = document.querySelector('.add-to-homescreen-popup');
 
 if ("serviceWorker" in navigator ) {
   console.log('This browser supports SW!');
@@ -22,23 +23,34 @@ window.addEventListener('beforeinstallprompt', e => {
   return false;
 });
 
+// Detects if device is on iOS 
+const isIos = () => {
+  const userAgent = window.navigator.userAgent.toLowerCase();
+  return /iphone|ipad|ipod/.test( userAgent );
+}
+
 if (downloadBtn)
-  downloadBtn.addEventListener('click', () => {
-    console.log('Clicked');
-    if (promptEvent) {
-      promptEvent.prompt();
+  if (isIos()) {
+    downloadBtn.style.display = 'none';
+    addToHomeScreen.style.display = 'block';
+  } else {
+    downloadBtn.addEventListener('click', () => {
+      console.log('Clicked');
+      if (promptEvent) {
+        promptEvent.prompt();
 
-      promptEvent.userChoice.then( choiceResult => {
-        console.log(choiceResult.outcome);
+        promptEvent.userChoice.then( choiceResult => {
+          console.log(choiceResult.outcome);
 
-        if (choiceResult.outcome === 'dismissed') {
-          console.log('Installation cancelled.');
-        } else {
-          console.log('User accepted installation!'); 
-        }
-      } );
+          if (choiceResult.outcome === 'dismissed') {
+            console.log('Installation cancelled.');
+          } else {
+            console.log('User accepted installation!'); 
+          }
+        } );
 
-      promptEvent = null;
+        promptEvent = null;
 
-    }
-  });
+      }
+    });
+  }
