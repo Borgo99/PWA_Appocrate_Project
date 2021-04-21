@@ -39,13 +39,6 @@ showNotificationBtn.addEventListener('click', () => {
     let swreg; //variabile di appoggio
     navigator.serviceWorker.ready
       .then( sw => {
-        const options = {
-          body: 'Questa è la notifica da te richiesta!',
-          icon: '/img/logo48.png',
-          badge: '/img/logo48.png',
-          lang: 'it-IT',
-          tag: 'sw-notification'
-        };
         //sw.showNotification('Notifica da Appocrate', options);
 
         //iscrizione al servizio di notifiche
@@ -77,7 +70,13 @@ showNotificationBtn.addEventListener('click', () => {
         })
       })
       .then( res => {
-        console.log(res.json());
+        const options = {
+          body: 'Questa è la notifica da te richiesta!',
+          icon: '/img/logo48.png',
+          badge: '/img/logo48.png',
+          lang: 'it-IT',
+          tag: 'sw-notification'
+        };
         if (res.ok)
           swreg.showNotification('Iscritto ad Appocrate!', options);
       })

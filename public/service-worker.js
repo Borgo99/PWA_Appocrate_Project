@@ -125,14 +125,14 @@ self.addEventListener('fetch', e => {
  * It fetches the request to the network, if there isn't an internet connection it searches in the cache.
  * Problem: fetches could require a lot of time before searching in the cache (as with really bad connection)
  */
-self.addEventListener('fetch', e => {
-  e.respondWith(
-    fetch(e.request)
-      .catch(err => {
-        return caches.match(e.request);
-      })
-  );
-});
+// self.addEventListener('fetch', e => {
+//   e.respondWith(
+//     fetch(e.request)
+//       .catch(err => {
+//         return caches.match(e.request);
+//       })
+//   );
+// });
 
 /**
  * Cache then Network Strategy
