@@ -1,6 +1,8 @@
 const enableNotificationsBtn = document.querySelector('#enableNotificationBtn');
 const showNotificationBtn = document.querySelector('#showNotificationBtn');
 
+const vapidPublicKey = 'BAEiFaXKJJ5S1IhjfcLQrbZmwHEzScmKC1Ntbaf0ZpJpOmqL57i7j6hKOUxmJzpZ9uYMHRRFOSOgmEfJIqaazlU';
+
 if (!('Notification' in window)) {
   enableNotificationsBtn.style.display = 'none';
 }
@@ -63,21 +65,21 @@ showNotificationBtn.addEventListener('click', () => {
           return sub;
         }
       })
-      .then( newSub => {
-        //console.log(newSub.endpoint);
+      .then( sub => {
+        //console.log(sub.endpoint);
         return fetch('/subscriptions', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
           },
-          body: JSON.stringify(newSub)
+          body: JSON.stringify(sub)
         })
       })
       .then( res => {
         console.log(res.json());
         if (res.ok)
-          swreg.showNotification('Iscritto ad Appocrate!');
+          swreg.showNotification('Iscritto ad Appocrate!', options);
       })
       .catch( err => console.log(err));
   }

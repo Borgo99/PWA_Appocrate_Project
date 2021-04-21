@@ -20,7 +20,7 @@ app.post('/subscriptions', async (req, res) => {
   console.log('Someone subscribed!');
   //console.log(req.body);
 
-  webpush.setVapidDetails('mailto:address@gmail.com', VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY);
+  //webpush.setVapidDetails('mailto:address@gmail.com', VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY);
 
   setTimeout( () => {
     

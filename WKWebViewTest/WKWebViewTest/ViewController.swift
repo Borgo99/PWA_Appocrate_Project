@@ -14,6 +14,11 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        /**
+         Istanziamo la WKWebView e settiamo alcuni attributi:
+         - settiamo le dimensioni della web page come quelle del dispositivo
+         - abilitiamo la navigazione tra le pagine tramite il touch screen
+         */
         view.addSubview(webView)
         // set web view layout constraints
         NSLayoutConstraint.activate([
@@ -29,10 +34,16 @@ class ViewController: UIViewController {
         // Inject JavaScript
         injectJS(to: contentController)
         
+        /**
+         Caricamento pagina index.html (alternativa al caricamento da url)
+         */
 //        if let url = Bundle.main.url(forResource: "index", withExtension: "html") {
 //            webView.loadFileURL(url, allowingReadAccessTo: url.deletingLastPathComponent())
 //        }
         
+        /**
+         Caricamento PWA nella WKWebView
+         */
         let url = URL(string: "https://pwappocrate.herokuapp.com/pwa.html")!
         webView.load(URLRequest(url: url))
     }
@@ -44,6 +55,13 @@ class ViewController: UIViewController {
         return webView
     }()
     
+    /**
+     Funzione per inserire condice JavaScript nella pagina web
+     In questo caso inseriamo uno script simile a quello commentato nel file
+     index.html. Quando viene premuto il bottone 'Ricevi Notifiche' nella PWA
+     viene mandato il seguente messaggio al codice nativo di Swift:
+     "User asked for notifications"
+     */
     private func injectJS(to contentController: AnyObject) {
         let js = """
             const notifyBtn = document.querySelector('#showNotificationBtn');
@@ -61,6 +79,9 @@ class ViewController: UIViewController {
         contentController.addUserScript(script)
     }
     
+    /**
+     Funzione analoga a quella sopra da usare per il file index.html
+     */
 //    private func injectJS(to contentController: AnyObject) {
 //        let js = """
 //            var _selector = document.querySelector('input[name=myCheckbox]');
@@ -80,19 +101,25 @@ class ViewController: UIViewController {
 
 }
 
+
+/**
+ Estensione del ViewController. Gestisce l'arrivo di messaggi dalla pagina web verso il codice nativo. In questo caso, si limita a stampare tali messaggi nella console di Xcode.
+ */
 extension ViewController: WKScriptMessageHandler {
     // we are assuming that the content received from the web page is a dictionary
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         guard let dict = message.body as? [String: AnyObject] else {
             return
         }
-        print(dict["message"])
+        print(dict["message"]!)
         guard let message = dict["message"] else {
             return
         }
         
+        // Usare il secondo script se si sta caricando il file index.html nella view
         let script = "document.getElementById('showNotificationBtn').style.display = 'none'"
         //let script = "document.getElementById('value').innerText = \"\(message)\""
+        
         // execute js code on the web page
         webView.evaluateJavaScript(script) { (result, error) in
             if let result = result {
