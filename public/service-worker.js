@@ -25,7 +25,6 @@ self.addEventListener('push', e => {
 });
 
 self.addEventListener('notificationclick', e => {
-  // console.log(e.notification.data);
   e.waitUntil(
     clients.matchAll()
       .then( results => {

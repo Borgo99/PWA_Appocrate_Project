@@ -39,8 +39,6 @@ showNotificationBtn.addEventListener('click', () => {
     let swreg; //variabile di appoggio
     navigator.serviceWorker.ready
       .then( sw => {
-        //sw.showNotification('Notifica da Appocrate', options);
-
         //iscrizione al servizio di notifiche
         swreg = sw;
         return swreg.pushManager.getSubscription();

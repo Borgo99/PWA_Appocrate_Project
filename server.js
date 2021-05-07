@@ -18,9 +18,6 @@ app.get('/home', (req, res) => {
 
 app.post('/subscriptions', async (req, res) => {
   console.log('Someone subscribed!');
-  //console.log(req.body);
-
-  // webpush.setVapidDetails('mailto:address@gmail.com', VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY);
 
   setTimeout( () => {
     
@@ -34,10 +31,14 @@ app.post('/subscriptions', async (req, res) => {
     const pushContent = {
       title: 'Ciao da Appocrate 👋🏻' ,
       content: 'Messaggio dal server di Appocrate',
-      openUrl: '/html/contact.html'
+      openUrl: '/html/contact.html' //link che si apre al click sulla notifica
     };
-    const options = webpush.setVapidDetails('mailto:address@gmail.com', VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY);
-    console.log(options);
+    const options = 
+      webpush.setVapidDetails(
+        'mailto:address@gmail.com', 
+        VAPID_PUBLIC_KEY, 
+        VAPID_PRIVATE_KEY
+      );
 
     webpush.sendNotification(pushConfig, JSON.stringify(pushContent), options)
       .catch(err => console.log(err));
